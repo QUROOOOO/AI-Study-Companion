@@ -8,14 +8,10 @@ Uncognito is a vibe-coded single-page web application packed with lively Materia
 ## ✨ Features
 
 - **Animated Material 3 UI** — expressive transitions and dynamic layouts
-- **Sidebar navigation** for Chat, Library, Quiz, and Stats
 - **AI-powered chat:** ask questions, upload files, get brief and organized answers
 - **Smart library system:** upload/view files, extract topic summaries, interactive search
 - **Built-in summarization and flowchart generation** for each note
 - **Quiz generator:** pick topics, set difficulty, upload files, customize quiz length
 - **Visual stats dashboard:** graphs, feedback, usage history
-- **Theme toggle:** instant dark/light mode with fluid transitions
 
-## ⚡ Quick Start
-
-1. **Clone the repo:**
+  
