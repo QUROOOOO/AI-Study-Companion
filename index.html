@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <!-- ==================== METADATA & LINKS ==================== -->
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Uncognito – AI Study Chat Assistant</title>
+  <link rel="stylesheet" href="style.css">
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Google+Sans:wght@400;500;700;800&family=Outfit:wght@400;600;700;800&display=swap" rel="stylesheet">
+  <!-- Material Icons -->
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded&display=swap" rel="stylesheet">
+</head>
+<body>
+  <!-- ==================== MATERIAL ANIMATED BG ==================== -->
+  <div class="background-art" id="backgroundArt">
+    <!-- SVG Blobs, animate via CSS -->
+    <svg width="100%" height="100%" viewBox="0 0 1440 900" fill="none">
+      <ellipse cx="260" cy="540" rx="370" ry="130" fill="url(#bgGrad1)" opacity="0.11"/>
+      <ellipse cx="1200" cy="170" rx="300" ry="90" fill="url(#bgGrad2)" opacity="0.09"/>
+      <defs>
+        <linearGradient id="bgGrad1" x1="0" y1="0" x2="1" y2="1">
+          <stop offset="0%" stop-color="#FFD6B0"/>
+          <stop offset="100%" stop-color="#FFE3D6"/>
+        </linearGradient>
+        <linearGradient id="bgGrad2" x1="0" y1="0" x2="1" y2="1">
+          <stop offset="0%" stop-color="#FFF0DA"/>
+          <stop offset="100%" stop-color="#FFAD67"/>
+        </linearGradient>
+      </defs>
+    </svg>
+  </div>
+
+  <!-- ==================== SIDEBAR ==================== -->
+  <nav class="sidebar" id="sidebar">
+    <div class="sidebar-header">
+      <div class="logo" id="logoHome" tabindex="0">
+        <!-- Large, animated, Material+ expressive logo -->
+        <div class="logo-round-orange"><svg viewBox="0 0 52 52" width="52" height="52"><circle cx="26" cy="26" r="26" fill="#ff914d"/><text x="26" y="35" text-anchor="middle" font-family="Google Sans, Outfit, sans-serif" font-size="23" font-weight="800" fill="#fff">U</text></svg></div>
+        <span class="logo-text">Uncognito</span>
+      </div>
+    </div>
+    <div class="sidebar-menu">
+      <button class="menu-item active" data-view="chat" title="Chat">
+        <span class="material-icon">forum</span><span>Chat</span>
+      </button>
+      <button class="menu-item" data-view="library" title="Library">
+        <span class="material-icon">folder</span><span>Library</span>
+      </button>
+      <button class="menu-item" data-view="quiz" title="Quiz">
+        <span class="material-icon">quiz</span><span>Quiz</span>
+      </button>
+      <button class="menu-item" data-view="stats" title="Stats">
+        <span class="material-icon">insights</span><span>Stats</span>
+      </button>
+    </div>
+    <div class="sidebar-footer">
+      <button class="theme-toggle" id="themeToggle" title="Toggle Theme">
+        <span class="material-icon sun-icon">light_mode</span>
+        <span class="material-icon moon-icon">dark_mode</span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- ==================== MAIN CONTENT ==================== -->
+  <main class="main-content" id="mainContent">
+    <!-- ========== CHAT VIEW ========== -->
+    <section class="view active" id="chat-view">
+      <div class="chat-toolbar">
+        <div class="user-avatar-minimal">
+          <svg width="46" height="46" viewBox="0 0 46 46"><circle cx="23" cy="23" r="23" fill="#ff914d"/><circle cx="23" cy="18" r="9" fill="#FFD6B0" opacity=".9"/><ellipse cx="23" cy="33" rx="13" ry="8" fill="#FFD6B0" opacity=".85"/></svg>
+        </div>
+        <span class="tool-title">Ask Uncognito Anything</span>
+      </div>
+      <div class="chat-container">
+        <div class="chat-messages" id="chatMessages"></div>
+        <div class="typing-indicator" id="typingIndicator" style="display:none;">
+          <div class="message-avatar bot-avatar">
+            <svg viewBox="0 0 36 36" width="32" height="32"><circle cx="18" cy="18" r="18" fill="#ff914d"/></svg>
+          </div>
+          <div class="typing-dots"><span></span><span></span><span></span></div>
+        </div>
+        <div class="chat-input-container">
+          <input type="file" id="chatFileInput" multiple accept=".txt,.pdf,.doc,.docx,.md,.jpg,.jpeg,.png" hidden>
+          <button class="attach-btn" id="attachBtn" title="Attach files"><span class="material-icon">attach_file</span></button>
+          <div class="chat-input-wrapper">
+            <textarea id="chatInput" placeholder="What's the question?" rows="1"></textarea>
+            <button class="mic-btn" id="voiceBtn" title="Voice Input"><span class="material-icon">mic</span></button>
+          </div>
+          <button class="send-btn" id="sendBtn" title="Send"><span class="material-icon">send</span></button>
+        </div>
+        <div class="file-preview-container" id="filePreviewContainer" style="display:none;">
+          <div class="file-preview-list" id="filePreviewList"></div>
+        </div>
+      </div>
+    </section>
+    
+    <!-- ========== LIBRARY + SUMMARY/KNOWLEDGE MAP VIEW ========== -->
+    <section class="view" id="library-view">
+      <div class="view-header">
+        <h1>My Library</h1>
+        <div class="search-box">
+          <span class="material-icon">search</span>
+          <input type="text" id="searchInput" placeholder="Search by keyword, topic, or content...">
+        </div>
+      </div>
+      <div class="notes-grid" id="notesGrid"></div>
+      <!-- Summarizer/Knowledge Map integrated here -->
+      <div class="library-summary-wrapper">
+        <h2 class="summary-title">Quick Topic Summary & Map</h2>
+        <div class="summary-controls">
+          <select id="summarizeSelect" class="select-input">
+            <option value="">Select a note...</option>
+          </select>
+          <button class="btn-primary" id="summarizeBtn">Show Summary/Map</button>
+        </div>
+        <div class="output-box" id="summaryOutput"></div>
+        <div class="flowchart-container" id="libraryFlowchart"></div>
+      </div>
+    </section>
+    
+    <!-- ========== QUIZ VIEW ========== -->
+    <section class="view" id="quiz-view">
+      <div class="view-header">
+        <h1>Quizify</h1>
+        <p>Create quizzes from your notes/files. Challenge yourself with smart, adaptive questions!</p>
+      </div>
+      <div class="quiz-setup">
+        <label for="quizDifficultySelect">Difficulty:</label>
+        <select id="quizDifficultySelect">
+          <option value="1">Level 1 – Basic</option>
+          <option value="2">Level 2 – Easy</option>
+          <option value="3">Level 3 – Medium</option>
+          <option value="4">Level 4 – Hard</option>
+          <option value="5">Level 5 – Very Hard</option>
+        </select>
+        <label for="quizTopicInput">Topic:</label>
+        <input type="text" id="quizTopicInput" placeholder="e.g. Indian Constitution, Neural Networks..." autocomplete="off">
+        <label for="quizNumQuestions">No. of Questions:</label>
+        <input type="number" id="quizNumQuestions" min="1" max="20" value="5">
+        <button class="btn-secondary upload-btn" id="uploadQuizFileBtn"><span class="material-icon">upload_file</span>Upload File</button>
+        <button class="btn-primary" id="chooseLibraryForQuizBtn"><span class="material-icon">folder_open</span>Choose from Library</button>
+        <button class="btn-primary" id="startQuizBtn">Start Quiz</button>
+      </div>
+      <div class="quiz-container" id="quizContainer"></div>
+      <!-- Library choose modal for quiz -->
+      <div class="library-select-modal" id="librarySelectModal">
+        <div class="modal-content">
+          <h2>Select a Note for Quiz</h2>
+          <button class="modal-close" onclick="closeLibrarySelectModal()"><span class="material-icon">close</span></button>
+          <div class="library-modal-grid" id="modalNotesGrid"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========== BEAUTIFUL STATS VIEW ========== -->
+    <section class="view" id="stats-view">
+      <div class="view-header stats-hero">
+        <h1>User Progress & Insights</h1>
+        <p>Visualize your learning journey. Get personalized feedback to speed up your growth!</p>
+      </div>
+      <div class="content-wrapper stats-wrapper">
+        <div class="stats-flex">
+          <div class="skill-radar">
+            <canvas id="statsRadar" height="270"></canvas>
+          </div>
+          <div class="stats-summary" id="statsSummary"></div>
+        </div>
+        <div class="actionable-advice" id="actionableAdvice"></div>
+        <div class="stats-history" id="statsHistory"></div>
+      </div>
+    </section>
+  </main>
+
+  <!-- ==================== MODALS ==================== -->
+
+  <!-- ========== LIBRARY NOTE MODAL (VIEW/DELETE/SUMMARY) ========== -->
+  <div class="modal-overlay" id="noteModal">
+    <div class="modal-content library-modal">
+      <div class="modal-header">
+        <h2 id="modalTitle">Note Topic</h2>
+        <button class="modal-close" onclick="closeNoteModal()"><span class="material-icon">close</span></button>
+      </div>
+      <div class="modal-body">
+        <div class="note-meta">
+          <span class="note-meta-tag" id="modalTag"></span>
+          <span class="note-meta-date" id="modalDate"></span>
+        </div>
+        <div class="note-full-content" id="modalContent"></div>
+        <div class="note-file-bar">
+          <span class="file-label"><span class="material-icon">description</span> <span id="originalFileName">Document</span> <span id="originalFileType"></span> <span id="originalFileSize"></span></span>
+          <button class="icon-btn" onclick="copyNoteContent()" title="Copy"><span class="material-icon">content_copy</span></button>
+          <button class="icon-btn" onclick="summarizeCurrentNote()" title="Summary & Map"><span class="material-icon">lightbulb</span></button>
+          <button class="icon-btn delete-btn" onclick="confirmDeleteNote(currentNoteId)" title="Delete"><span class="material-icon">delete_forever</span></button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ========== MODAL: DELETE CONFIRMATION POPUP ========== -->
+  <div class="modal-overlay" id="deleteConfirmModal">
+    <div class="modal-content delete-modal">
+      <div class="modal-header">
+        <h2>Delete Notebook?</h2>
+        <button class="modal-close" onclick="closeDeleteConfirmModal()"><span class="material-icon">close</span></button>
+      </div>
+      <div class="modal-body" id="deleteConfirmDetails"></div>
+      <div class="modal-actions">
+        <button class="btn-secondary" onclick="closeDeleteConfirmModal()">Cancel</button>
+        <button class="btn-primary delete-btn" id="deleteConfirmBtn">Delete</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==================== SCRIPTS ==================== -->
+  <script src="script.js"></script>
+</body>
+</html>
