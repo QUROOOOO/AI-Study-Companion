@@ -15,4 +15,4 @@ Uncognito is a vibe-coded single-page web application packed with lively Materia
 
 ## UPCOMING
 
-- ** Collaborative:** Virual Classroom for notes and Group studying with rank system & competitive analysis!!!
+- Collaborative: Virual Classroom for notes and Group studying with rank system & competitive analysis!!!
