@@ -1,5 +1,4 @@
-
-# Uncognito AI – Animated Study Web App
+# Uncognito AI – Smart Study Web App
 
 ## 🌀 Overview
 
@@ -14,4 +13,6 @@ Uncognito is a vibe-coded single-page web application packed with lively Materia
 - **Quiz generator:** pick topics, set difficulty, upload files, customize quiz length
 - **Visual stats dashboard:** graphs, feedback, usage history
 
-  
+## UPCOMING
+
+- ** Collaborative:** Virual Classroom for notes and Group studying with rank system & competitive analysis!!!
